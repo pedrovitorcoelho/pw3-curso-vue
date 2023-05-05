@@ -7,7 +7,18 @@
 
 <script>
 export default {
-
+    created() {
+        console.log('Criado');
+    },
+    activated() {
+        console.log('Ativado');
+    },
+    deactivated() {
+        console.log('Desativado');
+    },
+    destroyed() {
+        console.log('Destruido');
+    }
 }
 </script>
 

@@ -1,6 +1,10 @@
 <template>
     <div class="citacao">
-        
+        <slot name="autor"></slot>
+        <slot>
+            <h2>Texto Padrão</h2>
+        </slot>
+        <slot name="fonte"></slot>
     </div>
 </template>
 
@@ -17,4 +21,8 @@ export default {
         padding: 25px;
         max-width: 450px;
     }
+
+    /* h1 {
+        color: red;
+    } */
 </style>

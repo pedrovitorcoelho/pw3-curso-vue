@@ -4,12 +4,27 @@
             <button @click="numero--">&lt;</button>
             <button @click="numero++">&gt;</button>
         </span>
-        {{ numero }} {{ indice }}
+        <!-- <div>{{citacoes[indice].texto}}</div> -->
+        <!-- <Citacao>
+        </Citacao>
+        <Citacao>
+            <h2>Texto Sobrescrever</h2>
+        </Citacao> -->
+        <Citacao>
+            <h6 slot="fonte">{{ citacoes[indice].fonte }}</h6>
+            <p>{{ citacoes[indice].texto }}</p>
+            <h1 slot="autor">{{ citacoes[indice].autor }}</h1>
+        </Citacao>
     </div>
 </template>
 
 <script>
+import Citacao from './Citacao';
+
 export default {
+    components: {
+        Citacao
+    },
     data() {
         return {
             numero: 0,
@@ -25,12 +40,16 @@ export default {
                 fonte: 'Frases de Pai',
                 texto: 'Vou contar até 3! 1, 2, 2...',
                 autor: 'Gustavo'
+            }, {
+                fonte: 'Pensador',
+                texto: 'A loucura dos grandes deve ser vigiada.',
+                autor: 'Hamlet'
             }]
         }
     },
     computed: {
         indice() {
-            return Math.abs(this.numero % 3)
+            return Math.abs(this.numero % this.citacoes.length)
         }
     }
 }

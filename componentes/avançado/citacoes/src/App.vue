@@ -1,7 +1,14 @@
 <template>
 	<div id="app">
-		<Citacoes />
-		<Sobre />
+		<span>
+			<button @click="componente = 'Citacoes'">Citações</button>
+			<button @click="componente = 'Sobre'">Sobre</button>
+		</span>
+		<keep-alive>
+			<component :is="componente" />
+		</keep-alive>
+		<!-- <Citacoes />
+		<Sobre /> -->
 	</div>
 </template>
 
@@ -10,7 +17,12 @@ import Citacoes from './components/Citacoes'
 import Sobre from './components/Sobre'
 
 export default {
-	components: { Citacoes, Sobre }
+	components: { Citacoes, Sobre },
+	data() {
+		return {
+			componente: 'Citacoes'
+		}
+	}
 }
 </script>
 
@@ -33,5 +45,6 @@ export default {
         font-weight: 300;
         color: #FFF;
         background-color: rgba(0, 0, 0, .5);
+		cursor: pointer;
     }
 </style>
