@@ -2,7 +2,7 @@
 	<div id="app">
 		<h1>Registrar Reclamação</h1>
 		<div class="conteudo">
-			<form class="painel">
+			<div class="painel" v-if="!enviado">
 				<div class="cabecalho">Formulário</div>
 				<Rotulo nome="E-mail">
 					<input type="text" v-model.lazy.trim="form.email">
@@ -26,17 +26,24 @@
 					<span><input type="radio" v-model="form.produto" :value="3"> Outro</span>
 				</Rotulo>
 				<Rotulo nome="Prioridade">
-					<select name="" id="">
-						<option></option>
+					<select v-model="form.prioridade">
+						<!-- :selected="p.codigo === '1'" -->
+						<option
+							v-for="p in prioridades"
+							:key="p.codigo"
+							:value="p.codigo"
+						>
+							{{ p.codigo }} - {{ p.nome }}
+						</option>
 					</select>
 				</Rotulo>
 				<Rotulo nome="Primeira Reclamação?">
-					<Escolha />
+					<Escolha v-model="form.escolha" />
 				</Rotulo>
 				<hr>
-				<button>Enviar</button>
-			</form>
-			<div class="painel">
+				<button @click.prevent="enviar">Enviar</button>
+			</div>
+			<div class="painel" v-else>
 				<div class="cabecalho">Resultado</div>
 				<Rotulo nome="E-mail">
 					<span>{{ form.email }}</span>
@@ -66,10 +73,10 @@
 					<span>{{ form.produto }} - {{ typeof form.produto }}</span>
 				</Rotulo>
 				<Rotulo nome="Prioridade">
-					<span>???</span>
+					<span>{{ form.prioridade }}</span>
 				</Rotulo>
 				<Rotulo nome="Primeira Reclamação?">
-					<span>???</span>
+					<span>{{ form.escolha }}</span>
 				</Rotulo>
 			</div>
 		</div>
@@ -91,8 +98,25 @@ export default {
 				idade: 28,
 				mensagem: '',
 				caracteristicas: ["intermitente"],
-				produto: 2
-			}
+				produto: 2,
+				prioridade: '0',
+				escolha: true
+			},
+			prioridades: [
+				{ codigo: '0', nome: 'Alta' },
+				{ codigo: '1', nome: 'Moderada' },
+				{ codigo: '2', nome: 'Baixa' },
+			],
+			enviado: false
+		}
+	},
+	methods: {
+		enviar() {
+			this.enviado = true;
+
+			// Validar o formulário
+
+			// Enviar o formulário para o back!
 		}
 	}
 }
